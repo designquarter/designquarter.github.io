@@ -1,6 +1,40 @@
 <html>
 <head>
 <title>Design Quarter</title>
+<script language="javascript">
+
+    var getJSON = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          var status = xhr.status;
+          if (status === 200) {
+            callback(null, xhr.response);
+          } else {
+            callback(status, xhr.response);
+          }
+        };
+        xhr.send();
+    };
+    
+    
+    var filePath = 'https://spreadsheets.google.com/feeds/list/1WD9udj2e5QmPR1vPuYWf0EQqjkfXmeIEPgR3ssa-vmw/od6/public/values?alt=json'
+    getJSON(filePath,
+    function(err, data) {
+      if (err !== null) {
+        console.log('Something went wrong: ' + err);
+      } else {
+    
+    for (i = 0; i < data.feed.entry.length; i++) {
+        console.log(data.feed.entry[i].gsx$email.$t);
+    }
+    
+      }
+    });
+    
+    
+    </script>
 </head>
 
 <body>
